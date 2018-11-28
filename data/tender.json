@@ -1,0 +1,234 @@
+{
+  "title": "[ТЕСТУВАННЯ] title tender",
+  "description": "description tender",
+  "value": {
+    "amount": 0,
+    "valueAddedTaxIncluded": true,
+    "currency": "UAH"
+  },
+  "minimalStep": {
+    "amount": 0,
+    "valueAddedTaxIncluded": true,
+    "currency": "UAH"
+  },
+  "features": [
+    {
+      "title": "сорт",
+      "description": "сорт",
+      "featureOf": "item",
+      "relatedItem": "2678f69ffa5849808d2a35131996cda6",
+      "enum": [
+        {
+          "title": "перший",
+          "description": "перший соррт",
+          "value": 0.01
+        },
+        {
+          "title": "другий",
+          "description": "другий сорт",
+          "value": 0.02
+        }
+      ]
+    },
+    {
+      "title": "країна",
+      "description": "країна постачальник",
+      "featureOf": "tenderer",
+      "relatedItem": null,
+      "enum": [
+        {
+          "title": "кітай",
+          "description": "кітай",
+          "value": 0.02
+        },
+        {
+          "title": "пакістан",
+          "description": "пакістан",
+          "value": 0.03
+        }
+      ]
+    },
+    {
+      "title": "колір",
+      "description": "колір",
+      "featureOf": "lot",
+      "relatedItem": "8cccde23c750b790f2b63869662dd871",
+      "enum": [
+        {
+          "title": "жовтий",
+          "description": "жовтий",
+          "value": 0.06
+        },
+        {
+          "title": "бурий",
+          "description": "бурий",
+          "value": 0.07
+        }
+      ]
+    }
+  ],
+  "lots": [
+    {
+      "id": "2db8046567e66af30a51eddf768c4afd",
+      "title": "Lot 1: title",
+      "guarantee": {
+        "amount": 0,
+        "currency": "UAH"
+      },
+      "description": "Lot 1: description",
+      "value": {
+        "currency": "UAH",
+        "amount": 250000,
+        "valueAddedTaxIncluded": true
+      },
+      "minimalStep": {
+        "currency": "UAH",
+        "amount": 2500,
+        "valueAddedTaxIncluded": true
+      }
+    },
+    {
+      "id": "8cccde23c750b790f2b63869662dd871",
+      "title": "Lot 2: title",
+      "guarantee": {
+        "amount": 0,
+        "currency": "UAH"
+      },
+      "description": "Lot 2: description",
+      "value": {
+        "currency": "UAH",
+        "amount": 100000,
+        "valueAddedTaxIncluded": true
+      },
+      "minimalStep": {
+        "currency": "UAH",
+        "amount": 1000,
+        "valueAddedTaxIncluded": true
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "78a00538155501a84165e3630455b187",
+      "description": "item 1 related lot 1",
+      "classification": {
+        "scheme": "ДК021",
+        "id": "03211200-5",
+        "description": "Кукурудза"
+      },
+      "unit": {
+        "code": "KT",
+        "name": "комплект"
+      },
+      "quantity": 50,
+      "deliveryDate": {
+        "startDate": null,
+        "endDate": null
+      },
+      "deliveryAddress": {
+        "countryName": "Україна",
+        "postalCode": "03150",
+        "region": "Київська обл.",
+        "locality": "Київ",
+        "streetAddress": "Садова, 5"
+      },
+      "relatedLot": "8cccde23c750b790f2b63869662dd871",
+      "additionalClassifications": []
+    },
+    {
+      "id": "78a00538155501a84165e3630455b187",
+      "description": "item 2 related lot 1",
+      "classification": {
+        "scheme": "ДК021",
+        "id": "03211500-8",
+        "description": "Рожь"
+      },
+      "unit": {
+        "code": "KT",
+        "name": "комплект"
+      },
+      "quantity": 50,
+      "deliveryDate": {
+        "startDate": null,
+        "endDate": null
+      },
+      "deliveryAddress": {
+        "countryName": "Україна",
+        "postalCode": "03150",
+        "region": "Київська обл.",
+        "locality": "Боярка",
+        "streetAddress": "Центральна, 18"
+      },
+      "relatedLot": "8cccde23c750b790f2b63869662dd871",
+      "additionalClassifications": []
+    },
+    {
+      "id": "2678f69ffa5849808d2a35131996cda6",
+      "description": "item 1 related lot 2",
+      "classification": {
+        "scheme": "ДК021",
+        "id": "03212213-6",
+        "description": "Горох сушений"
+      },
+      "unit": {
+        "code": "PK",
+        "name": "упаковка"
+      },
+      "quantity": 200,
+      "deliveryDate": {
+        "startDate": null,
+        "endDate": null
+      },
+      "deliveryAddress": {
+        "countryName": "Україна",
+        "postalCode": "03121",
+        "region": "Київська обл.",
+        "locality": "Київ",
+        "streetAddress": "Жовтнева, 8"
+      },
+      "relatedLot": "2db8046567e66af30a51eddf768c4afd",
+      "additionalClassifications": []
+    },
+    {
+      "id": "2316d45074fc3213ca601edcaa068455",
+      "description": "item 2 related lot 2",
+      "classification": {
+        "scheme": "ДК021",
+        "id": "03211120-0",
+        "description": "Пшеница обычная"
+      },
+      "unit": {
+        "code": "D64",
+        "name": "блок"
+      },
+      "quantity": 77,
+      "deliveryDate": {
+        "startDate": null,
+        "endDate": null
+      },
+      "deliveryAddress": {
+        "countryName": "Україна",
+        "postalCode": "03155",
+        "region": "Київська обл.",
+        "locality": "Боярка",
+        "streetAddress": "Південна, 15"
+      },
+      "relatedLot": "2db8046567e66af30a51eddf768c4afd",
+      "additionalClassifications": []
+    }
+  ],
+  "tenderPeriod": {
+    "endDate": "2018-11-22T01:00:00",
+    "startDate": "2018-11-21T23:56:00"
+  },
+  "procurementMethodType": "belowThreshold",
+  "funders": [],
+  "enquiryPeriod": {
+    "endDate": "2018-11-21T23:55:00",
+    "startDate": "2018-11-21T23:13:25"
+  },
+  "guarantee": {
+    "amount": 0,
+    "currency": "UAH"
+  }
+}

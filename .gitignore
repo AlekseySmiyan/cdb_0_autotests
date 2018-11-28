@@ -1,0 +1,12 @@
+.idea/
+
+__pycache__/
+ENV/
+test.py
+.venv
+
+# project settings
+local_settings.py
+
+# work files
+examples.py
