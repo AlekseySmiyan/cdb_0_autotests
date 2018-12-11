@@ -74,6 +74,9 @@ class BasePage:
     def select_value(self, locator, value):
         return Select(self.element(locator)).select_by_value(value)
 
+    def select_last_value(self, locator, value):
+        return Select(self.elements(locator)[-1]).select_by_value(value)
+
     def select_text(self, locator, text):
         return Select(self.element(locator)).select_by_visible_text(text)
 

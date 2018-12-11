@@ -32,6 +32,7 @@ def app(driver):
         date_widget = TP.DateWidget(driver)
         lot_modal = TP.LotModal(driver)
         document_modal = TP.DocumentModal(driver)
+        feature_modal = TP.FeatureModal(driver)
     return App
 
 

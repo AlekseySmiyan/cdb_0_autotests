@@ -12,6 +12,7 @@ class TenderBuilder:
         app.select_procedure_modal.select_procedure('belowThreshold')
         self.fill_tender()
         self.add_lot(0).add_lot(1)
+        self.add_feature(0)
         app.tender_page.publish_tender(docs=True)
         for doc_of in docs_of:
             app.document_modal.attach_documents_tender(
@@ -45,4 +46,11 @@ class TenderBuilder:
         app.date_widget.fill_delivery_start(index, data)
         app.date_widget.fill_delivery_end(index, data)
         return self
+
+    def add_feature(self, index):
+        app = self.app
+        data = self.data
+        app.feature_modal.go_feature_modal()
+        app.feature_modal.add_feature(index, data)
+
 

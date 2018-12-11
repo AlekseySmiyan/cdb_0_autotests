@@ -56,3 +56,13 @@ class TenderAdaptData:
 
     def delivery_address(self, index, value):
         return self.data['items'][index]['deliveryAddress'][value]
+
+    def feature(self, index, value):
+        return self.data['features'][index][value]
+
+    def options(self, index):
+        return self.data['features'][index]['enum']
+
+    def option(self, index_feature, index_option, value):
+        return self.data['features'][index_feature]['enum'][index_option][value]
+

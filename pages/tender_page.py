@@ -9,9 +9,9 @@ class TenderPage(BasePage):
         super().__init__(driver)
 
     # buttons
-    publish_tender_button = (By.XPATH, '//*[@ng-click="publish()"]')
-    attach_docs_tender_button = (By.ID, 'attach-docs-btn')
-    no_docs_tender_button = (By.ID, 'no-docs-btn')
+    publish = (By.XPATH, '//*[@ng-click="publish()"]')
+    attach_docs = (By.ID, 'attach-docs-btn')
+    no_docs = (By.ID, 'no-docs-btn')
 
     # fields
     title = (By.ID, 'tender-title')
@@ -24,11 +24,11 @@ class TenderPage(BasePage):
 
     def publish_tender(self, docs=False):
         click = self.click
-        click(self.publish_tender_button)
+        click(self.publish)
         if docs:
-            click(self.attach_docs_tender_button)
+            click(self.attach_docs)
         else:
-            click(self.no_docs_tender_button)
+            click(self.no_docs)
 
 
 class LotModal(BasePage):
@@ -46,12 +46,12 @@ class LotModal(BasePage):
     save_delyvery_address = (By.XPATH, '//*[@ng-click="vm.save()"]')
     save_lot_button = (By.XPATH, '//*[@ng-click="save()"]')
     # field
-    lot_fields = lambda *args, name=None: (By.XPATH, '//input[@ng-model="lot.{}"]'.format(name))
-    item_fields = lambda *args, name=None: (By.XPATH, '(//input[@ng-model="vm.item.{}"])'.format(name))
-    unit_name = lambda *args, name=None: (By.XPATH, '//a[text()="{}"]'.format(name))
+    lot_fields = lambda self, name=None: (By.XPATH, '//input[@ng-model="lot.{}"]'.format(name))
+    item_fields = lambda self, name=None: (By.XPATH, '(//input[@ng-model="vm.item.{}"])'.format(name))
+    unit_name = lambda self, name=None: (By.XPATH, '//a[text()="{}"]'.format(name))
     classifier_search = (By.ID, 'classifier-search-field')
-    classifier_code = lambda *args, code=None: (By.XPATH, '//*[text()="{}"]'.format(code))
-    delivery_address = lambda *args, name: (By.NAME, '{}'.format(name))
+    classifier_code = lambda self, code=None: (By.XPATH, '//*[text()="{}"]'.format(code))
+    delivery_address = lambda self, name: (By.NAME, '{}'.format(name))
     # check box
     choose_cpv = (By.XPATH, "//input[@ng-change='chooseClassificator(item)']")
 
@@ -113,7 +113,7 @@ class DocumentModal(BasePage):
         super().__init__(driver)
 
     add_document = (By.XPATH, '//*[@ng-click="uploadDocument()"]')
-    select = lambda *args, name=None: (
+    select = lambda self, name=None: (
         By.XPATH, '//select[@ng-model="document.{}"]'.format(name))
     upload_button = (By.XPATH, '//*[@ng-model="file"]')
     input_file = (By.XPATH, "//input[@type='file']")
@@ -184,6 +184,47 @@ class DateWidget(BasePage):
         path = self.period.format('Требуемый крайний срок поставки')
         date = lambda f: data.period_delivery(index, 'endDate')[f]
         self.fill_period(path, date)
+
+
+class FeatureModal(BasePage):
+
+    def __init__(self, driver):
+        super().__init__(driver)
+
+    # buttons
+    add_feature_modal = (By.ID, 'qualityIndicator')
+    add_feature_button = (By.XPATH, '//*[@ng-click="addNewField()"]')
+    add_option_button = (By.XPATH, '//*[contains(@id, "add-option")]')
+    save_feature_button = (By.XPATH, '//*[@ng-click="save()"]')
+    # field
+    feature_field = lambda self, name=None: (By.XPATH, '//*[@ng-model="item.{}"]'.format(name))
+    option = lambda self, name=None: (By.XPATH, '//*[@ng-model="option.{}"]'.format(name))
+    # select
+    feature_of = lambda self, index=None: (By.NAME, 'featureOf{}'.format(index))
+    related_item = lambda self, index=None: (By.NAME, 'relatedItem{}'.format(index))
+
+    def go_feature_modal(self):
+        self.click(self.add_feature_modal)
+
+    def add_feature(self, index, data):
+        click, fill = self.click_last_element, self.fill_last_element
+        fill(self.feature_field(name='title'), data.feature(index, 'title'))
+        fill(self.feature_field(name='description'), data.feature(index, 'description'))
+        self.select_value(self.feature_of(index=index), data.feature(index, 'featureOf'))
+        self.select_text(self.related_item(index=index), data.item_description(index))
+        for i in range(0, len(data.options(index))):
+            self.add_option(data, index, i)
+        click(self.save_feature_button)
+
+    def add_option(self, data, index_features, index_option):
+        click, fill = self.click, self.fill_last_element
+        if index_option > 0:
+            click(self.add_option_button)
+        fill(self.option(name='title'), data.option(index_features, index_option, 'title'))
+        fill(self.option(name='value'), str(data.option(index_features, index_option, 'value')))
+        fill(self.option(name='description'), data.option(index_features, index_option, 'description'))
+
+
 
 
 
