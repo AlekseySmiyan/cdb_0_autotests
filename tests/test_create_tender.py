@@ -12,9 +12,12 @@ def owner_login(app, url, user):
     return user_name == app.home_page.get_user_name()
 
 
-@pytest.mark.below
-class TestCreateTenderBelow:
+def pytest_namespace():
+    return {'tender_id': None}
 
+
+@pytest.mark.below
+class TestCreateTenderBelow():
     data = prepare_data.tender_data('belowThreshold')
     data = adapt_data.TenderAdaptData(data)
 
@@ -26,16 +29,15 @@ class TestCreateTenderBelow:
     def test_create_tender(self, app, file_path):
         tb = builder.TenderBuilder(app, self.data, file_path=file_path)
         tb.create_tender_below_multi()
+        pytest.tender_id = app.tender_page.tender_id
+        assert bool(pytest.tender_id) is True
 
+    @pytest.mark.order3
+    def test_search_tender(self, app):
+        list_tenders = app.home_page.search_tender(pytest.tender_id)
+        assert len(list_tenders) == 1
 
-
-
-
-
-
-
-
-
-
-
-
+    @pytest.mark.order4
+    def test_view_tender_id(self, app):
+        app.home_page.go_tender(pytest.tender_id)
+        assert app.tender_page.tender_id == pytest.tender_id

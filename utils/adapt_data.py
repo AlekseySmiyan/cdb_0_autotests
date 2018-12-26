@@ -20,6 +20,12 @@ class TenderAdaptData:
     def lot_description(self, index):
         return self.data['lots'][index]['description']
 
+    def value_amount(self):
+        return self.data['value']['amount']
+
+    def minimalstep_amoumt(self):
+        return self.data['minimalStep']['amount']
+
     def lot_value_amount(self, index):
         return str(self.data['lots'][index]['value']['amount'])
 
@@ -65,4 +71,5 @@ class TenderAdaptData:
 
     def option(self, index_feature, index_option, value):
         return self.data['features'][index_feature]['enum'][index_option][value]
+
 

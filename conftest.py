@@ -1,7 +1,6 @@
 import pytest
 from selenium import webdriver
 
-import os
 import settings
 
 
@@ -23,30 +22,36 @@ def app(driver):
     from pages import login_page as LP
     from pages import home_page as HP
     from pages import tender_page as TP
+    from pages import lot_form as LF
+    from pages import item_form as IF
+    from pages import feature_form as FF
+    from pages import document_form as DF
 
     class App:
         login_page = LP.LoginPage(driver)
         home_page = HP.HomePage(driver)
         select_procedure_modal = HP.SelectProcedureModal(driver)
         tender_page = TP.TenderPage(driver)
-        date_widget = TP.DateWidget(driver)
-        lot_modal = TP.LotModal(driver)
-        document_modal = TP.DocumentModal(driver)
-        feature_modal = TP.FeatureModal(driver)
+        lot_form = LF.LotForm(driver)
+        item_form = IF.ItemForm(driver)
+        feature_form = FF.FeatureForm(driver)
+        document_form = DF.DocumentForm(driver)
+
     return App
 
 
 @pytest.fixture(scope='session')
 def url():
-    env = os.environ['ENV']
+    env = settings.ENV
     return settings.BASE_URL[env]
 
 
 @pytest.fixture(scope='session')
 def user():
-    env = os.environ['ENV']
+    env = settings.ENV
     users = {
         'prod': settings.USERS_PROD,
+        'stage': settings.USERS_STAGE,
         'dev23': settings.USERS_DEV23,
         'dev24': settings.USERS_DEV24
     }.get(env)

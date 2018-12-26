@@ -16,15 +16,20 @@ DATA_FILE = os.path.join(DATA_DIR, '{file_name}')
 TEST_FILES_DIR = os.path.join(BASE_DIR, 'test_files')
 FILE_PATH = os.path.join(TEST_FILES_DIR, '{file_name}')
 
+# environ
+ENV = os.environ['ENV']
+
 # urls
 BASE_URL = {
     'prod': '***',
+    'stage': '***',
     'dev23': '***',
     'dev24': '***'
 }
 
 # users
 USERS_PROD = {}
+USERS_STAGE = {}
 USERS_DEV23 = {}
 USERS_DEV24 = {
     'owner': {
