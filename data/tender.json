@@ -120,7 +120,7 @@
         "code": "KT",
         "name": "комплект"
       },
-      "quantity": 50,
+      "quantity": 51,
       "deliveryDate": {
         "startDate": null,
         "endDate": null
@@ -147,7 +147,7 @@
         "code": "KT",
         "name": "комплект"
       },
-      "quantity": 50,
+      "quantity": 55,
       "deliveryDate": {
         "startDate": null,
         "endDate": null

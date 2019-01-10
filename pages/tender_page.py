@@ -24,16 +24,64 @@ class TenderPage(BasePage):
     def tender_id(self):
         return self.get_element_text((By.XPATH, "//*[@class='title']//a"))
 
+    @property
+    def tender_title(self):
+        return self.get_element_text((By.ID, 'view-tender-title'))
+
+    @property
+    def tender_description(self):
+        return self.get_element_text((By.ID, 'view-tender-description'))
+
+    @property
+    def tender_value_amount(self):
+        return self.get_element_text((By.ID, 'view-tender-value'))
+
+    @property
+    def list_lots(self):
+        return self.elements((By.XPATH, '//*[@class="short-lots__list"]/li'))
+
+    def lot_title(self, index):
+        return self.get_element_text((By.ID, 'view-lot-title-{}'.format(index)))
+
+    def lot_description(self,  index):
+        return self.get_element_text((By.ID, 'view-lot-description-{}'.format(index)))
+
+    def lot_value_amount(self, index):
+        return self.get_element_text((By.XPATH, '(//*[@id="view-lot-value"])[{}]'.format(index + 1)))
+
+    def lot_minimalstep_amount(self, index):
+        return self.get_element_text((
+            By.XPATH,
+            '//*[@id="lot-item-{}"]//*[@class="tender-budget__minimal-step block-info"]//div[2]'.format(index)))
+
+    def list_lot_items(self, index):
+        return self.elements((By.XPATH, '//*[@id="lot-item-{}"]//*[@id="view-item-description"]'.format(index)))
+
+    def item_description(self, index):
+        return self.get_element_text((By.XPATH, '(//*[@id="view-item-description"])[{}]'.format(index + 1)))
+
+    def item_quantity(self, index):
+        return self.get_element_text((By.XPATH, '(//*[@id="quantity"])[{}]'.format(index + 1)))
+
+    def item_unit_name(self, index):
+        return self.get_element_text((By.XPATH, '(//*[@id="quantity"]/following-sibling::span)[{}]'.format(index + 1)))
+
+    def item_cpv(self, index):
+        return self.get_element_text((
+            By.XPATH, '(//*[contains(text(), "ДК 021:2015")]/following-sibling::div)[{}]'.format(index + 1)))
+
+    def full_delivery_address(self, index):
+        return self.get_element_text((
+            By.XPATH, '(//*[contains(text(), "Место поставки")]/following-sibling::div)[{}]'.format(index + 1)))
+
+    def delivery_date(self, index, period):
+        return self.get_element_text((
+            By.XPATH, '(//*[contains(@ng-bind, "vm.item.deliveryDate.{}Date")])[{}]'.format(period, index + 1)))
+
     def fill_tender_description(self, data):
         fill = self.fill
-        fill(self.title, data.title)
-        fill(self.description, data.description)
-
-    def fill_tender_period(self, data):
-        dw = self.date_widget
-        dw.fill_enquiry_period_end(data)
-        dw.fill_tender_period_start(data)
-        dw.fill_tender_period_end(data)
+        fill(self.title, data.title())
+        fill(self.description, data.description())
 
     def go_lot_form(self):
         add_lot = self.add_lot

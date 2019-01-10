@@ -13,7 +13,7 @@ class TenderBuilder:
         self.fill_tender()
         self.add_lot(0).fill_item(0).add_item(1)
         app.lot_form.save_lot()
-        self.add_lot(1).fill_item(2).add_item(3)
+        self.add_lot(1).fill_item(2)
         app.lot_form.save_lot()
         self.add_feature(0)
         app.tender_page.publish_tender(docs=True)
@@ -26,7 +26,7 @@ class TenderBuilder:
         app = self.app
         data = self.data
         app.tender_page.fill_tender_description(data)
-        app.tender_page.fill_tender_period(data)
+        app.date_widget.fill_tender_periods(data)
 
     def add_lot(self, index):
         app = self.app
@@ -40,7 +40,7 @@ class TenderBuilder:
         app.item_form.fill_item(index, data)
         app.item_form.select_cpv(index, data)
         app.item_form.fill_delivery_address(index, data)
-        app.item_form.fill_delivery_period(index, data)
+        app.date_widget.fill_delivery_periods(index, data)
         return self
 
     def add_item(self, index):

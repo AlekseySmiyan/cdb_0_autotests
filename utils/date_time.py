@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from pytz import timezone
+import dateutil.parser
 
 
 def create_date(**kwargs):
@@ -18,5 +19,11 @@ def create_date(**kwargs):
 def date_now_format(str_format):
     date = datetime.now()
     return date.strftime(str_format)
+
+
+def adapt_date(date, str_format):
+    parse_date = dateutil.parser.parse(date)
+    date = parse_date.strftime(str_format)
+    return date
 
 

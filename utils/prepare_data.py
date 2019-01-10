@@ -1,5 +1,4 @@
 import json
-import faker
 import random
 
 import settings
@@ -15,15 +14,13 @@ def tender_data(procedure):
     # title, description
     data['title'] = '[auto] Tender {}: {}'.format(
         procedure, DT.date_now_format('%Y-%m-%d %H:%M'))
-    data['description'] = faker.Faker().text()
+    data['description'] = 'Description'
     # periods
     if procedure == 'belowThreshold' and env in ['dev23', 'dev24']:
-        print('dev')
         data['enquiryPeriod']['endDate'] = DT.create_date(minutes=5)
         data['tenderPeriod']['startDate'] = DT.create_date(minutes=6)
         data['tenderPeriod']['endDate'] = DT.create_date(minutes=20)
     elif procedure == 'belowThreshold' and env in ['prod', 'stage']:
-        print('stage')
         data['enquiryPeriod']['endDate'] = DT.create_date(minutes=60 * 24 + 5)
         data['tenderPeriod']['startDate'] = DT.create_date(minutes=60 * 24 + 6)
         data['tenderPeriod']['endDate'] = DT.create_date(minutes=60 * (24 * 2) + 7)
@@ -42,14 +39,15 @@ def tender_data(procedure):
         data['lots'][l]['description'] = 'Lot {}: description'.format(str(l + 1))
         # value amount
         lot_value = data['lots'][l]['value']
-        lot_value['amount'] = round(random.uniform(1000, 10000.99), 2)
+        lot_value['amount'] = round(random.uniform(1000, 10000.9), 1)
         value_amount += lot_value['amount']
         data['value']['amount'] = float('{:.2f}'.format(value_amount))
         # minimal step amount
         lot_step = data['lots'][l]['minimalStep']
-        lot_step['amount'] = round(lot_value['amount'] * 0.01, 2)
+        lot_step['amount'] = round(lot_value['amount'] * 0.01, 1)
         minimal_step_amount += lot_step['amount']
         data['minimalStep']['amount'] = float('{:.2f}'.format(minimal_step_amount))
     return data
+
 
 

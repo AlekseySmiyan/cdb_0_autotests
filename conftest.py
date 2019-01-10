@@ -26,6 +26,7 @@ def app(driver):
     from pages import item_form as IF
     from pages import feature_form as FF
     from pages import document_form as DF
+    from pages import date_widget as DW
 
     class App:
         login_page = LP.LoginPage(driver)
@@ -36,6 +37,7 @@ def app(driver):
         item_form = IF.ItemForm(driver)
         feature_form = FF.FeatureForm(driver)
         document_form = DF.DocumentForm(driver)
+        date_widget = DW.DateWidget(driver)
 
     return App
 

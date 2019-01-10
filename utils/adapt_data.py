@@ -1,4 +1,4 @@
-from utils import text_hundler as TH
+from utils import date_time
 
 
 class TenderAdaptData:
@@ -6,11 +6,9 @@ class TenderAdaptData:
     def __init__(self, data):
         self.data = data
 
-    @property
     def title(self):
         return self.data['title']
 
-    @property
     def description(self):
         return self.data['description']
 
@@ -45,23 +43,35 @@ class TenderAdaptData:
         return self.data['items'][index]['classification']['id']
 
     def period(self, period, date):
-        date = self.data[period][date]
+        value = self.data[period][date]
         return {
-            'date': TH.get_date(date),
-            'hour': TH.get_hour(date),
-            'minutes': TH.get_minutes(date)
+            'date': date_time.adapt_date(value, '%Y-%m-%d'),
+            'hour': date_time.adapt_date(value, '%H'),
+            'minutes': date_time.adapt_date(value, '%M')
         }
 
     def period_delivery(self, index, date):
-        date = self.data['items'][index]['deliveryDate'][date]
+        value = self.data['items'][index]['deliveryDate'][date]
         return {
-            'date': TH.get_date(date),
-            'hour': TH.get_hour(date),
-            'minutes': TH.get_minutes(date)
+            'date': date_time.adapt_date(value, '%Y-%m-%d'),
+            'hour': date_time.adapt_date(value, '%H'),
+            'minutes': date_time.adapt_date(value, '%M')
         }
+
+    def date_delivery(self, index, period):
+        date_delivery = self.data['items'][index]['deliveryDate']['{}Date'.format(period)]
+        return date_time.adapt_date(date_delivery, '%Y-%m-%d %H:%M')
 
     def delivery_address(self, index, value):
         return self.data['items'][index]['deliveryAddress'][value]
+
+    def full_delivery_address(self, index):
+        keys = ['postalCode', 'countryName', 'region', 'locality', 'streetAddress']
+        list_values = []
+        for key in keys:
+            list_values.append(self.data['items'][index]['deliveryAddress'][key] + ',')
+        full_address = ' '.join(list_values)
+        return full_address
 
     def feature(self, index, value):
         return self.data['features'][index][value]

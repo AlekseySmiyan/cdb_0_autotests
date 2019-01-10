@@ -71,7 +71,3 @@ class ItemForm(BasePage):
         self.focus_element(self.save_address)
         self.click(self.save_address)
 
-    def fill_delivery_period(self, index, data):
-        dw = self.date_widget
-        dw.fill_delivery_start(index, data)
-        dw.fill_delivery_end(index, data)
