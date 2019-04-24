@@ -20,23 +20,18 @@ class TenderPage(BasePage):
     title = (By.ID, 'tender-title')
     description = (By.ID, 'tender-description')
 
-    @property
     def tender_id(self):
         return self.get_element_text((By.XPATH, "//*[@class='title']//a"))
 
-    @property
     def tender_title(self):
         return self.get_element_text((By.ID, 'view-tender-title'))
 
-    @property
     def tender_description(self):
         return self.get_element_text((By.ID, 'view-tender-description'))
 
-    @property
     def tender_value_amount(self):
         return self.get_element_text((By.ID, 'view-tender-value'))
 
-    @property
     def list_lots(self):
         return self.elements((By.XPATH, '//*[@class="short-lots__list"]/li'))
 
@@ -77,6 +72,13 @@ class TenderPage(BasePage):
     def delivery_date(self, index, period):
         return self.get_element_text((
             By.XPATH, '(//*[contains(@ng-bind, "vm.item.deliveryDate.{}Date")])[{}]'.format(period, index + 1)))
+
+    def list_features(self):
+        return self.elements((By.CLASS_NAME, 'tender-feature'))
+
+    def list_option(self):
+        return self.elements((
+            By.XPATH, '//*[@class="tender-feature"]//tbody/tr'))
 
     def fill_tender_description(self, data):
         fill = self.fill

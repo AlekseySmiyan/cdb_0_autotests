@@ -39,7 +39,7 @@ def tender_data(procedure):
         data['lots'][l]['description'] = 'Lot {}: description'.format(str(l + 1))
         # value amount
         lot_value = data['lots'][l]['value']
-        lot_value['amount'] = round(random.uniform(1000, 10000.9), 1)
+        lot_value['amount'] = round(random.uniform(1000, 10000.3), 1)
         value_amount += lot_value['amount']
         data['value']['amount'] = float('{:.2f}'.format(value_amount))
         # minimal step amount

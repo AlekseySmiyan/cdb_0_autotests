@@ -45,8 +45,8 @@ class TestCreateTenderBelow():
     def test_create_tender(self, app, file_path):
         tb = builder.TenderBuilder(app, self.data, file_path=file_path)
         tb.create_tender_below_multi()
-        pytest.tender_id = app.tender_page.tender_id
-        assert bool(pytest.tender_id) is True
+        pytest.tender_id = app.tender_page.tender_id()
+        assert pytest.tender_id
 
     @pytest.mark.order3
     def test_search_tender(self, app):
@@ -56,31 +56,31 @@ class TestCreateTenderBelow():
     @pytest.mark.order4
     def test_view_tender_id(self, app):
         app.home_page.go_tender(pytest.tender_id)
-        actual = app.tender_page.tender_id
+        actual = app.tender_page.tender_id()
         expected = pytest.tender_id
         assert actual == expected
 
     @pytest.mark.order5
     def test_view_tender_title(self, app):
-        actual = app.tender_page.tender_title
+        actual = app.tender_page.tender_title()
         expected = '[ТЕСТУВАННЯ] ' + self.data.title()
         assert actual == expected
 
     @pytest.mark.order6
     def test_view_tender_description(self, app):
-        actual = app.tender_page.tender_description
+        actual = app.tender_page.tender_description()
         expected = self.data.description()
         assert actual == expected
 
     @pytest.mark.order7
     def test_view_tender_value_amount(self, app):
-        actual = float(app.tender_page.tender_value_amount)
+        actual = float(app.tender_page.tender_value_amount())
         expected = self.data.value_amount()
         assert actual == expected
 
     @pytest.mark.order8
     def test_view_quantity_lots(self, app):
-        assert len(app.tender_page.list_lots) == 2
+        assert len(app.tender_page.list_lots()) == 2
 
     @pytest.mark.order9
     def test_view_lot_title(self, app, lot_index):
@@ -107,7 +107,10 @@ class TestCreateTenderBelow():
         expected = float(self.data.lot_minimalstep_amount(lot_index))
         assert actual == expected
 
-    @pytest.mark.parametrize('lot, items_quantity', [(0, 2), (1, 1)])
+    @pytest.mark.parametrize('lot, items_quantity',
+                             [(0, 2), (1, 1)],
+                             ids=['lot_0 quantity_item==2',
+                                  'lot_1 quantity_item==1'])
     @pytest.mark.order13
     def test_view_quantity_items_in_lot(self, app, lot, items_quantity):
         actual = len(app.tender_page.list_lot_items(lot))
@@ -151,4 +154,13 @@ class TestCreateTenderBelow():
         actual = date_time.adapt_date(date, '%Y-%m-%d %H:%M')
         expected = self.data.date_delivery(item_index, period)
         assert actual == expected
+
+    @pytest.mark.order20
+    def test_view_quantity_features(self, app):
+        assert len(app.tender_page.list_features()) == 1
+
+    @pytest.mark.order21
+    def test_view_quantity_options(self, app):
+        assert len(app.tender_page.list_features()) == 2
+
 
